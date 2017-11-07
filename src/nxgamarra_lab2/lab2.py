@@ -54,7 +54,7 @@ class Robot:
                 origin.orientation.w] # quaternion nonsense
 
         xOrigin=origin.orientation.x
-        yorigin=origin.orientation.y
+        yOrigin=origin.orientation.y
 
         atTarget=False
 
@@ -66,16 +66,18 @@ class Robot:
         move_msg.linear.x=0
         move_msg.linear.z=0
 
-
+        currentDistance=0
         #for extra credit ramp speed from 0 to speed and from speed to 1/4 speed when past half way
 
 
-        while(not atTarget and not rospy.is_suhtdown()):
+        while(not atTarget and not rospy.is_shutdown()):
             if(currentDistance>=distance):
+                print('driveStraight: stoped')
                 atTarget=True
                 self._vel_pub.publish(stop_msg)
             else:
-                origin=copy.deepcopy(self,_current)
+                print('driveStraight: moving')
+                origin=copy.deepcopy(self._current)
                 xCurrent=origin.orientation.x
                 yCurrent=origin.orientation.y
                 currentDistance=math.sqrt(math.pow((xCurrent-xOrigin),2)+math.pow((yCurrent-yOrigin),2))
@@ -206,6 +208,8 @@ if __name__ == '__main__':
     turtle = Robot()
 
     #test function calls here
-    Robot.spinWheels(turtle, 5, 5, 15)
+    Robot.spinWheels(turtle, 2, 5, 10)
+    #Robot.driveStraight(turtle, 5, 3)
+
     while  not rospy.is_shutdown():
         pass
