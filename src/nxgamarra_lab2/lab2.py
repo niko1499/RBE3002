@@ -23,7 +23,7 @@ class Robot:
     def navToPose(self,goal):
         """
         rospy.Subscriber('YOUR_STRING_HERE', ..., self.navToPose, queue_size=1) # handle nav goal events
-            This is a callback function. It should exract data from goal, drive in a striaght line to reach the goal and 
+            This is a callback function. It should exract data from goal, drive in a striaght line to reach the goal and
             then spin to match the goal orientation.
         """
 
@@ -148,6 +148,11 @@ class Robot:
                 self._vel_pub.publish(move_msg)
                 rospy.sleep(.15)
 
+    def driveArc(self,radius,speed,angle):
+        #Drive arc extra credit
+
+
+
     def timerCallback(self,evprent):
         """
             This is a callback that runs every 0.1s.
@@ -167,13 +172,15 @@ class Robot:
                 self._current.orientation.z,
                 self._current.orientation.w] # quaternion nonsense
 
-        (roll, pitch, yaw) = euler_from_quaternion(q) 
+        (roll, pitch, yaw) = euler_from_quaternion(q)
 
 
     def readBumper(self, msg):
         """
         callback function that excutes on a BumperEvent
        """
+       if(msg.state==1):#the bumper is pressed
+           executeTrajectory()
 
     # helper functions
     def planTraj(self, b, t):
