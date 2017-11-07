@@ -64,6 +64,10 @@ class Robot:
         move_msg.linear.x=0
         move_msg.linear.z=0
 
+
+        #for extra credit ramp speed from 0 to speed and from speed to 1/4 speed when past half way
+
+
         while(not atTarget and not rospy.is_suhtdown()):
             if(currentDistance>=distance):
                 atTarget=True
