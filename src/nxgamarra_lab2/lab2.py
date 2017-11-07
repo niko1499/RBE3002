@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import rospy, tf, copy, math
 from kobuki_msgs.msg import BumperEvent
 from geometry_msgs.msg import Twist, Pose, PoseStamped
@@ -15,9 +16,9 @@ class Robot:
         self._current = Pose() # initlize correctly #Pose() 
         self._odom_list = tf.TransformListener()
         rospy.Timer(rospy.Duration(.1), self.timerCallback)
-        self._vel_pub = rospy.Publisher('cmd_vel_mux/input/teleop', ..., queue_size=1)
-        rospy.Subscriber('YOUR_STRING_HERE', ..., self.navToPose, queue_size=1) # handle nav goal events
-        rospy.Subscriber('YOUR_STRING_HERE', ..., self.readBumper, queue_size=1) # handle bumper events
+        self._vel_pub = rospy.Publisher('cmd_vel_mux/input/teleop',Twist, queue_size=1)
+        rospy.Subscriber('/move_base_simple/goal', PoseStamped, self.navToPose, queue_size=1) # handle nav goal events
+        rospy.Subscriber('/mobile_base/events/bumper', BumperEvent, self.readBumper, queue_size=1) # handle bumper events
 
 
     def navToPose(self,goal):
@@ -31,6 +32,7 @@ class Robot:
         transGoal = self._odom_list.transformPose('YOUR_STRING_HERE', goal) # transform the nav goal from the global coordinate system to the robot's coordinate system
 
     def executeTrajectory(self):
+        print('executeTrajectory')
         """
         See lab manual for the dance the robot has to excute
       """
@@ -85,7 +87,7 @@ class Robot:
            This method should use differential drive kinematics to compute V and omega (linear x = V, angular z = omega).
            It should then create a ??? message type, and publish it to ??? in order to move the robot
         """
-
+        print('spinwheels')
         diameter = 0.23 # based on wheel track from https://yujinrobot.github.io/kobuki/doxygen/enAppendixKobukiParameters.html
 
 
@@ -97,15 +99,19 @@ class Robot:
 
         move_msg=Twist()
         move_msg.linear.x=u
-        move_msg.angluar.z=w
+        move_msg.angular.z=w
 
         stop_msg =Twist()
         stop_msg.linear.x=0
         stop_msg.angular.z=0
 
+        start=rospy.Time().now().secs
+
         while(rospy.Time().now().secs - start <time and not rospy.is_shutdown()):
             self._vel_pub.publish(move_msg)
+            print('spinwheels: moving')
         self._vel_pub.publish(stop_msg)
+        print('spinwheels: stoped')
 
 
     def rotate(self,angle):
@@ -122,6 +128,10 @@ class Robot:
         (roll, pitch, yaw) = euler_from_quaternion(q)
 
         atTarget=False
+
+        currentAngle=origin.orientation.w
+
+        angle=angle+currentAngle
 
         if(angle==0):
             w=0
@@ -148,7 +158,7 @@ class Robot:
                 self._vel_pub.publish(move_msg)
                 rospy.sleep(.15)
 
-    def driveArc(self,radius,speed,angle):
+   # def driveArc(self,radius,speed,angle):
         #Drive arc extra credit
 
 
@@ -176,10 +186,11 @@ class Robot:
 
 
     def readBumper(self, msg):
+        #
         """
         callback function that excutes on a BumperEvent
-       """
-       if(msg.state==1):#the bumper is pressed
+        """
+        if(msg.state==1):#the bumper is pressed
            executeTrajectory()
 
     # helper functions
@@ -195,6 +206,6 @@ if __name__ == '__main__':
     turtle = Robot()
 
     #test function calls here
-
+    Robot.spinWheels(turtle, 5, 5, 15)
     while  not rospy.is_shutdown():
         pass
