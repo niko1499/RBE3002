@@ -53,11 +53,21 @@ class Robot:
 
         driveStartTime = rospy.Time.now().secs
 
-        z=(v_right-v_left)/diameter
+        w=(v_right-v_left)/diameter
 
-        x=(v_left+v_right)/2
+        u=(v_left+v_right)/2
 
+        move_msg=Twist()
+        move_msg.linear.x=u
+        move_msg.angluar.z=w
 
+        stop_msg =Twist()
+        stop_msg.linear.x=0
+        stop_msg.angular.z=0
+
+        while(rospy.Time().now().secs - start <time and not rospy.is_shutdown()):
+            self._vel_pub.publish(move_msg)
+        self._vel_pub.publish(stop_msg)
 
 
     def rotate(self,angle):
