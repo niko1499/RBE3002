@@ -1,0 +1,9 @@
+<launch>
+
+<node name="lab2" pkg="nxgamarra_lab2" type="lab2.py" output="screen">
+    </node>
+</launch>
+
+	
+
+

@@ -1,0 +1,8 @@
+prefix=/home/niko/catkin_ws/devel
+
+Name: nxgamarra_lab2
+Description: Description of nxgamarra_lab2
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/niko/catkin_ws/devel/lib 
+Requires: 
