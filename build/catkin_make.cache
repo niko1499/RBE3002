@@ -1,2 +1,2 @@
-
+nxgamarra_lab2
 -DCATKIN_DEVEL_PREFIX=/home/niko/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/niko/catkin_ws/install -G Unix Makefiles

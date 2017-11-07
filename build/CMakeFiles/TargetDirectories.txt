@@ -19,3 +19,11 @@
 /home/niko/catkin_ws/build/gtest/CMakeFiles/gtest_main.dir
 /home/niko/catkin_ws/build/gtest/CMakeFiles/install/strip.dir
 /home/niko/catkin_ws/build/gtest/CMakeFiles/install/local.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/rebuild_cache.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/edit_cache.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/list_install_components.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/install.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/_catkin_empty_exported_target.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/install/local.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/install/strip.dir
+/home/niko/catkin_ws/build/nxgamarra_lab2/CMakeFiles/test.dir
