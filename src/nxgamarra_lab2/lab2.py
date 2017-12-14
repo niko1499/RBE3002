@@ -53,8 +53,6 @@ class Robot:
                 origin.orientation.z,
                 origin.orientation.w] # quaternion nonsense
 
-       # xOrigin=origin.orientation.x
-       # yOrigin=origin.orientation.y
         xOrigin=self._current.position.x
         yOrigin=self._current.position.y
         atTarget=False
@@ -111,16 +109,13 @@ class Robot:
         stop_msg.angular.z=0
 
         start=time.time()
-       # start=rospy.Time().now().secs
         currentTime=start
 
         while(currentTime - start <duration and not rospy.is_shutdown()):
-            #currentTime=rospy.Time.now().secs
             currentTime=time.time()
             self._vel_pub.publish(move_msg)
             print('spinwheels: moving')
             print('\n time: '+str(time)+'start: '+str(start)+'current: '+str(currentTime))
-           # rospy.sleep(.15)
         self._vel_pub.publish(stop_msg)
         print('spinwheels: stoped')
 
@@ -140,8 +135,6 @@ class Robot:
 
         atTarget=False
 
-
-       # currentAngle=origin.orientation.z
         currentAngle=yaw
         angle=angle+currentAngle
 
@@ -176,8 +169,6 @@ class Robot:
 
                 (roll, pitch, yaw) = euler_from_quaternion(q)
 
-               # origin=copy.deepcopy(self._current)
-               # currentAngle=origin.orientation.z
                 currentAngle=yaw
                 self._vel_pub.publish(move_msg)
                 rospy.sleep(.15)
